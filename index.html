@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <style>
+    </style>
+  </head>
+  <body>
+    <h1>Acme Product Offerings</h1>
+    <div id='products'>
+    </div>
+    <script>
+     const PRODUCTS_URL = 'https://acme-users-api-rev.herokuapp.com/api/products';
+     let id = '';
+     let data = '';
+
+     const grab = async()=> {
+      let responses = await Promise.all([fetch(PRODUCTS_URL)]);
+      console.log(responses);
+     }
+
+
+    </script>
+  </body>
+</html>
