@@ -5,20 +5,31 @@
   </head>
   <body>
     <h1>Acme Product Offerings</h1>
-    <div id='products'>
-    </div>
+    <div id='products'></div>
+
     <script>
-     const PRODUCTS_URL = 'https://acme-users-api-rev.herokuapp.com/api/products';
-     let id = '';
-     let data = '';
+      const PRODUCTS_URL = 'https://acme-users-api-rev.herokuapp.com/api/';
+      let id = '';
+      let respJSONse = [];
 
-     const grab = async()=> {
-      let responses = await Promise.all([
-        fetch(PRODUCTS_URL)
+      const grab = async()=> {
+        let responses = await Promise.all([
+          fetch(PRODUCTS_URL + "products"),
+          fetch(PRODUCTS_URL + "offerings"),
+          fetch(PRODUCTS_URL + "companies")
         ]);
+        //console.log(responses)
+        respJSONse = await Promise.all(responses.map(ele => ele.json()))
+        console.log(respJSONse)
+
+        const htmlString = respJSONse[0].map(ele => {
+          return `<div class = "card"><h2>${ele.name}</h2></div>`
+        }).join('')
+
+        document.getElementById('products').innerHTML = htmlString
       }
-
-
+      
+      grab()
     </script>
   </body>
 </html>
